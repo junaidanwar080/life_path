@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Data</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+        }
+        h2{
+            text-align: center;
+        }
+        .center {
+            margin-left: auto;
+            margin-right: auto;
+          }
+    </style>
+</head>
+<body>
+    <h2>API Data</h2>
+    <div class="m-2">
+
+        
+        <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Birthdate</th>
+                <th>life_path_number</th>
+                <th>Destiny</th>
+                <th>Personality #</th>
+                <th>Soul Urge</th>
+                
+            </tr>
+        </thead>
+        <tbody id="data-body">
+        </tbody>
+    </table>
+</div>
+    
+    
+    <script>
+        $(document).ready(function() {
+            $.ajax({
+                url: 'api/',  
+                method: 'GET',
+                success: function(data) {
+                    console.log(data)
+                    let tableBody = '';
+                    $.each(data, function(index, item) {
+                        tableBody += `<tr>
+                            <td>${item.id}</td>
+                            <td>${item.name}</td>
+                            <td>${item.birthdate}</td>
+                            <td>${item.life_path_number}</td>
+                            <td>${item.destiny}</td>
+                                        <td>${item.personality_number}</td>
+                                        <td>${item.soul_urge_number}</td>
+
+                                      </tr>`;
+                    });
+
+                    $('#data-body').html(tableBody);
+                },
+                error: function() {
+                    $('#data-body').html('<tr><td colspan="4">Failed to load data</td></tr>');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
